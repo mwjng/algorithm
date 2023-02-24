@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Main {  // 투포인터 알고리즘은 0이나 음수가 들어가면 안됨
+public class Main {  // 투포인터 알고리즘은 0이나 음수가 들어가면 쓰면 안된다
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);  
         int n = sc.nextInt();
