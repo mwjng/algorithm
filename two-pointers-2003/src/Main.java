@@ -1,8 +1,8 @@
 import java.util.*;
 
-public class Main {
+public class Main {  // 투포인터 알고리즘은 0이나 음수가 들어가면 안됨
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);  
         int n = sc.nextInt();
         int m = sc.nextInt();
         int[] num = new int[n];
