@@ -24,14 +24,13 @@ public class Main {
     public static void dfs(int index, int count) {
         if (count == N / 2) {
             calculate();
+            return;
         }
 
         for(int i = index; i < N; i++) {
-            if(!visited[i]) {
-                visited[i] = true;
-                dfs(i+1, count+1);
-                visited[i] = false;
-            }
+            visited[i] = true;
+            dfs(i+1, count+1);
+            visited[i] = false;
         }
     }
 
