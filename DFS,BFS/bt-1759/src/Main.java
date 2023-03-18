@@ -24,8 +24,6 @@ public class Main {
             else
                 con.add(ap);
         }
-        Collections.sort(vow);
-        Collections.sort(con);
 
         for(int i = 1; i <= L-2; i++) {
             vowDfs(i, 0, 0);
