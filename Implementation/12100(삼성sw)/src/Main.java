@@ -6,7 +6,6 @@ import java.util.*;
 public class Main {
     static int N;
     static int[][] map;
-    static boolean[][] check;
     static int[] dx = {-1, 1, 0, 0};
     static int[] dy = {0, 0, -1, 1};
     static int max = 0;
@@ -14,7 +13,6 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
         map = new int[N][N];
-        check = new boolean[N][N];
 
         for(int i = 0; i < N; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
