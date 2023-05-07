@@ -39,8 +39,6 @@ public class Main {
     }
 
     public static void find(int end, List<Integer> temp) {
-        if(check[end])
-            return;
         check[end] = true;
         temp.add(end);
         if(!check[arr[end]]) {
