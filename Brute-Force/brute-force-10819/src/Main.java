@@ -38,6 +38,7 @@ public class Main {
                 temp.add(arr[i]);
                 check[i] = true;
                 dfs(depth+1);
+              
                 // 동일한 수가 존재할 수 있기 때문에 temp.remove(Integer.valueOf(arr[i])); 하면 안됨
                 temp.remove(temp.size()-1);
                 check[i] = false;
