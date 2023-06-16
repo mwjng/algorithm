@@ -14,8 +14,8 @@ public class Main {
     static int[] dx = {-1, 1, 0, 0};
     static int[] dy = {0, 0, -1, 1};
     static List<Coo> list = new ArrayList<>();
-    static List<Integer> virus = new ArrayList<>();
-    static int min = Integer.MAX_VALUE;
+    static List<Coo> virus = new ArrayList<>();
+    static int res = Integer.MAX_VALUE;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -36,10 +36,10 @@ public class Main {
 
         dfs(0, 0);
 
-        if(min == Integer.MAX_VALUE)
+        if(res == Integer.MAX_VALUE)
             bw.write(String.valueOf(-1));
         else
-            bw.write(String.valueOf(min));
+            bw.write(String.valueOf(res-3));
         bw.flush();
         bw.close();
         br.close();
@@ -47,43 +47,39 @@ public class Main {
 
     public static void dfs(int depth, int idx) {
         if(depth == M) {
-            int res = bfs();
-            if(res != -1) {
-                min = Math.min(min, res);
+            int value = bfs();
+            if(value != -1) {
+                res = Math.min(res, value);
             }
             return;
         }
         for(int i = idx; i < list.size(); i++) {
-            virus.add(i);
+            virus.add(list.get(i));
             dfs(depth+1, i+1);
-            virus.remove(Integer.valueOf(i));
+            virus.remove(virus.size()-1);
         }
     }
 
     public static int bfs() {
-        Queue<Coo> q = new LinkedList<>();
-        boolean[][] visit = new boolean[N][N];
         int[][] copy = new int[N][N];
         for(int i = 0; i < N; i++) {
             copy[i] = map[i].clone();
         }
-        for(int i = 0; i < M; i++) {
-            int idx = virus.get(i);
-            Coo c = list.get(idx);
-            q.offer(new Coo(c.x, c.y));
-            visit[c.x][c.y] = true;
+        Queue<Coo> q = new LinkedList<>();
+        for(Coo c : virus) {
             copy[c.x][c.y] = 3;
+            q.offer(c);
         }
+
         while(!q.isEmpty()) {
-            Coo c = q.poll();
+            Coo tmp = q.poll();
             for(int i = 0; i < 4; i++) {
-                int nx = c.x + dx[i];
-                int ny = c.y + dy[i];
-                if(nx >= 0 && ny >= 0 && nx < N && ny < N && !visit[nx][ny]) {
-                    if(copy[nx][ny] != 1) {
-                        copy[nx][ny] = copy[c.x][c.y] + 1;
-                        visit[nx][ny] = true;
-                        q.offer(new Coo(nx, ny));
+                int tx = tmp.x + dx[i];
+                int ty = tmp.y + dy[i];
+                if(tx >= 0 && ty >= 0 && tx < N && ty < N) {
+                    if(copy[tx][ty] == 0 || copy[tx][ty] == 2) {
+                        copy[tx][ty] = copy[tmp.x][tmp.y] + 1;
+                        q.offer(new Coo(tx, ty));
                     }
                 }
             }
@@ -92,13 +88,14 @@ public class Main {
         int max = 3;
         for(int i = 0; i < N; i++) {
             for(int j = 0; j < N; j++) {
-                if(copy[i][j] == 0 || copy[i][j] == 2)
+                if(copy[i][j] == 0)
                     return -1;
-                if(copy[i][j] != 1 && map[i][j] != 2)
+                if(map[i][j] != 2) {
                     max = Math.max(max, copy[i][j]);
+                }
             }
         }
 
-        return max-3;
+        return max;
     }
 }
