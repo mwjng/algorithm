@@ -53,35 +53,16 @@ public class Main {
                 list[from].add(new Edge(to, weight));
                 reverseList[to].add(from);
             }
-            dijkstra1(S);
+            dijkstra(S, dist1);
             if (dist1[D] == Integer.MAX_VALUE) {
                 sb.append(-1 + "\n");
                 continue;
             }
             shortestPath(D);
-            int result = dijkstra2(S);
-            sb.append((result == Integer.MAX_VALUE ? -1 : result) + "\n");
+            dijkstra(S, dist2);
+            sb.append((dist2[D] == Integer.MAX_VALUE ? -1 : dist2[D]) + "\n");
         }
         System.out.print(sb);
-    }
-
-    static void dijkstra1(int start) {
-        PriorityQueue<Edge> pq = new PriorityQueue<>();
-        boolean[] visited = new boolean[N];
-        pq.offer(new Edge(start, 0));
-        dist1[start] = 0;
-        while (!pq.isEmpty()) {
-            Edge cur = pq.poll();
-            if(!visited[cur.end]) {
-                visited[cur.end] = true;
-                for (Edge e : list[cur.end]) {
-                    if (dist1[e.end] > cur.weight + e.weight) {
-                        dist1[e.end] = cur.weight + e.weight;
-                        pq.offer(new Edge(e.end, dist1[e.end]));
-                    }
-                }
-            }
-        }
     }
 
     static void shortestPath(int end) {
@@ -101,24 +82,23 @@ public class Main {
         }
     }
 
-    static int dijkstra2(int start) {
+    static void dijkstra(int start, int[] dist) {
         PriorityQueue<Edge> pq = new PriorityQueue<>();
         boolean[] visited = new boolean[N];
         pq.offer(new Edge(start, 0));
-        dist2[start] = 0;
+        dist[start] = 0;
         while (!pq.isEmpty()) {
             Edge cur = pq.poll();
             if(!visited[cur.end]) {
                 visited[cur.end] = true;
                 for (Edge e : list[cur.end]) {
                     if (isShortestPath[cur.end][e.end]) continue;
-                    if (dist2[e.end] > cur.weight + e.weight) {
-                        dist2[e.end] = cur.weight + e.weight;
-                        pq.offer(new Edge(e.end, dist2[e.end]));
+                    if (dist[e.end] > cur.weight + e.weight) {
+                        dist[e.end] = cur.weight + e.weight;
+                        pq.offer(new Edge(e.end, dist[e.end]));
                     }
                 }
             }
         }
-        return dist2[D];
     }
 }
