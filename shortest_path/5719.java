@@ -25,7 +25,6 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
         StringTokenizer st;
-
         while (true) {
             st = new StringTokenizer(br.readLine());
             N = Integer.parseInt(st.nextToken());
@@ -48,20 +47,20 @@ public class Main {
 
             for (int i = 0; i < M; i++) {
                 st = new StringTokenizer(br.readLine());
-                int u = Integer.parseInt(st.nextToken());
-                int v = Integer.parseInt(st.nextToken());
+                int from = Integer.parseInt(st.nextToken());
+                int to = Integer.parseInt(st.nextToken());
                 int weight = Integer.parseInt(st.nextToken());
-                list[u].add(new Edge(v, weight));
-                reverseList[v].add(u);
+                list[from].add(new Edge(to, weight));
+                reverseList[to].add(from);
             }
             dijkstra1(S);
             if (dist1[D] == Integer.MAX_VALUE) {
-                sb.append(-1).append("\n");
+                sb.append(-1 + "\n");
                 continue;
             }
             shortestPath(D);
             int result = dijkstra2(S);
-            sb.append(result == Integer.MAX_VALUE ? -1 : result).append("\n");
+            sb.append((result == Integer.MAX_VALUE ? -1 : result) + "\n");
         }
         System.out.print(sb);
     }
