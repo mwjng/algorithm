@@ -46,7 +46,7 @@ public class Main {
                 int ny = cur[1] + dy[i];
                 if(nx < 0 || ny < 0 || nx >= R || ny >= C ) continue;
                 if (cur[2] == 1) {
-                    if(map[nx][ny] == '.' || map[nx][ny] == 'S') {
+                    if(map[nx][ny] == '.') {
                         q.offer(new int[]{nx, ny, 1});
                         map[nx][ny] = '*';
                     }
